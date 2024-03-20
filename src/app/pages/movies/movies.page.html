@@ -1,13 +1,27 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>movies</ion-title>
+  <ion-toolbar color="primary">
+    <ion-title>Jonas Move</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">movies</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-card *ngFor="let item of movies">
+    <img alt="{{ item.title }}" [src]="imageUrl + 'w400' + item.poster_path" class="custom-image"
+      [routerLink]="item.id" />
+    <ion-card-header>
+      <ion-card-title class="movie-title">{{ item.title }}</ion-card-title>
+      <ion-card-subtitle class="release-date">Sortie en {{ item.release_date | date: 'Y' }}</ion-card-subtitle>
+      <!-- Afficher la moyenne des votes -->
+      <ion-item lines="none" class="vote-average">
+        <ion-label>Moyenne des votes</ion-label>
+        <ion-badge color="secondary">{{ item.vote_average }} sur 10</ion-badge>
+      </ion-item>
+    </ion-card-header>
+  </ion-card>
+
+  <ion-infinite-scroll (ionInfinite)="loadMore($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Veuillez patientez...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
 </ion-content>
