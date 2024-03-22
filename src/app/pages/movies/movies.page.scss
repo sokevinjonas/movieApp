@@ -1,21 +1,37 @@
-.custom-image {
-    width: 100%;
-    height: 50vh;
-  }
+.background {
+  --background: #000; /* Couleur de fond de l'application */
+}
+
+.movies-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+ion-card {
+  margin: 10px;
+  width: calc(50% - 20px); /* Réglez la largeur de la carte selon vos besoins */
+  max-width: 300px; /* Réglez la largeur maximale de la carte selon vos besoins */
+  background-color: #333; /* Couleur de fond de la carte */
+}
+
+.movie-poster {
+  width: 100%;
+  height: auto;
+  border-bottom: 2px solid #fff; /* Bordure inférieure de l'affiche */
+}
+
+.movie-header {
+  padding: 10px;
+}
 
 .movie-title {
-font-size: 1.2em;
-font-weight: bold;
-color: #333; /* Couleur de titre personnalisée */
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #fff; /* Couleur du titre du film */
 }
 
-.release-date {
-font-style: italic;
-color: #666; /* Couleur de la date de sortie personnalisée */
+.movie-info {
+  font-style: italic;
+  color: #ccc; /* Couleur des informations sur le film */
 }
-
-.vote-average {
-font-size: 0.9em;
-color: #888; /* Couleur de la moyenne des votes personnalisée */
-}
-  

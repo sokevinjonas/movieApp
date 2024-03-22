@@ -1,0 +1,30 @@
+.backg {
+  --background: var(--ion-color-dark);
+}
+
+.movie-poster {
+  width: 100%;
+  height: auto;
+}
+
+.movie-details {
+  background-color: #000; /* Couleur de fond noir */
+  color: #fff; /* Texte blanc */
+}
+
+.movie-title {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.movie-tagline {
+  font-style: italic;
+}
+
+.movie-genres {
+  margin-top: 10px;
+}
+
+.movie-overview {
+  margin-top: 20px;
+}

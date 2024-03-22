@@ -1,5 +1,5 @@
 <ion-header [translucent]="true">
-  <ion-toolbar color="success">
+  <ion-toolbar color="dark">
     <ion-title>{{ movie?.title }}</ion-title>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/movies"></ion-back-button>
@@ -7,24 +7,27 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-
+<ion-content class="backg">
   <ion-card *ngIf="movie">
-    <img alt="{{ movie.title }}" [src]="imageUrl + 'w780' + movie.poster_path" />
+    <img class="movie-poster" alt="{{ movie.title }}" [src]="imageUrl + 'w500' + movie.poster_path" />
   </ion-card>
-  <ion-card>
+  <ion-card class="movie-details">
     <ion-card-header *ngIf="movie">
-      <ion-card-title>{{ movie.title }}</ion-card-title>
-      <ion-card-subtitle>{{ movie.tagline }}</ion-card-subtitle>
-      <ion-text color="primary">
+      <ion-card-title class="movie-title">{{ movie.title }}</ion-card-title>
+      <ion-card-subtitle class="movie-tagline">{{ movie.tagline }}</ion-card-subtitle>
+      <ion-text class="movie-genres" color="primary">
         <span *ngFor="let g of movie.genres; let isLast = last">
           {{ g.name }} {{ !isLast ? "-" : "" }}
         </span>
       </ion-text>
     </ion-card-header>
-    <ion-card-content *ngIf="movie" color="medium">
+    <ion-card-content *ngIf="movie" class="movie-overview" color="medium">
       <ion-label>{{ movie.overview }}</ion-label>
+      <p>Langue originale: {{ movie.original_language }}</p>
+      <p>Date de sortie: {{ movie.release_date }}</p>
+      <p>Popularité: {{ movie.popularity }}</p>
+      <p>Moyenne des votes: {{ movie.vote_average }}/10</p>
+      <p>Nombre de votes: {{ movie.vote_count }}</p>
     </ion-card-content>
-
   </ion-card>
 </ion-content>

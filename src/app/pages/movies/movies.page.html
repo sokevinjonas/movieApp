@@ -1,27 +1,25 @@
 <ion-header [translucent]="true">
-  <ion-toolbar color="primary">
-    <ion-title>Jonas Move</ion-title>
+  <ion-toolbar color="dark">
+    <ion-title>Avis Films</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-card *ngFor="let item of movies">
-    <img alt="{{ item.title }}" [src]="imageUrl + 'w400' + item.poster_path" class="custom-image"
-      [routerLink]="item.id" />
-    <ion-card-header>
-      <ion-card-title class="movie-title">{{ item.title }}</ion-card-title>
-      <ion-card-subtitle class="release-date">Sortie en {{ item.release_date | date: 'Y' }}</ion-card-subtitle>
-      <!-- Afficher la moyenne des votes -->
-      <ion-item lines="none" class="vote-average">
-        <ion-label>Moyenne des votes</ion-label>
-        <ion-badge color="secondary">{{ item.vote_average }} sur 10</ion-badge>
-      </ion-item>
-    </ion-card-header>
-  </ion-card>
+<ion-content [fullscreen]="true" class="background">
+  <ion-searchbar placeholder="Faite une recherche rapide"></ion-searchbar>
+  <div class="movies-container">
+    <ion-card *ngFor="let item of movies">
+      <img alt="{{ item.title }}" [src]="imageUrl + 'w500' + item.poster_path" class="movie-poster"
+        [routerLink]="item.id" />
+      <ion-card-header class="movie-header">
+        <ion-card-title class="movie-title">{{ item.title }}</ion-card-title>
+        <ion-card-subtitle class="movie-info">Sortie le {{ item.release_date }}</ion-card-subtitle>
+        <ion-card-subtitle class="movie-info">Apprécié sur : {{ item.vote_average }}/10</ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
+  </div>
 
   <ion-infinite-scroll (ionInfinite)="loadMore($event)">
-    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Veuillez patientez...">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Veuillez patienter...">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
-
 </ion-content>
