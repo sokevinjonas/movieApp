@@ -1,15 +1,24 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
-    <ion-title>Jonas Move</ion-title>
+    <ion-title>Jonas Movie </ion-title>
+    <ion-buttons slot="end">
+      <!-- <ion-select placeholder="Langue" (ionChange)="changeLanguage($event.detail.value)"> -->
+      <ion-select placeholder="Langue" (ionChange)="changeLanguage($event.detail.value)">
+        <ion-select-option value="en">English</ion-select-option>
+        <ion-select-option value="fr">Français</ion-select-option>
+        <!-- Ajoutez d'autres options de langue selon vos besoins -->
+      </ion-select>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
+
 
 <ion-content [fullscreen]="true">
   <ion-card *ngFor="let item of movies">
     <img alt="{{ item.title }}" [src]="imageUrl + 'w400' + item.poster_path" class="custom-image"
       [routerLink]="item.id" />
     <ion-card-header>
-      <ion-card-title class="movie-title">{{ item.title }}</ion-card-title>
+      <ion-card-title class="movie-title">{{ item.title | translate }}</ion-card-title>
       <ion-card-subtitle class="release-date">Sortie en {{ item.release_date | date: 'Y' }}</ion-card-subtitle>
       <!-- Afficher la moyenne des votes -->
       <ion-item lines="none" class="vote-average">

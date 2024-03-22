@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { InfiniteScrollCustomEvent, LoadingController } from '@ionic/angular'; // Importation correcte de LoadingController
+import { InfiniteScrollCustomEvent, LoadingController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 import { MovieService } from 'src/app/services/movie.service';
 import { environment } from 'src/environments/environment';
 
@@ -9,39 +10,47 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./movies.page.scss'],
 })
 export class MoviesPage implements OnInit {
-  movies : any[] = [];
+  movies: any[] = [];
   current_pages = 1;
   imageUrl = environment.images;
+
   constructor(
     private movieService: MovieService,
-    private loadingController: LoadingController // Correction de l'injection de LoadingController
+    private loadingController: LoadingController,
+    public translate: TranslateService
   ) {}
 
   ngOnInit() {
     this.loadMovies();
+    this.translate.setDefaultLang('en');  
   }
 
   async loadMovies(event?: InfiniteScrollCustomEvent) {
     const loading = await this.loadingController.create({
       message: 'En cours...',
-      // duration: 200000,
       spinner: 'bubbles'
     });
     await loading.present();
     
-    this.movieService.getTopRateMovies(this.current_pages).subscribe(res => {
+    const language = this.translate.currentLang || 'en'; // Récupérer la langue actuelle
+    this.movieService.getTopRateMovies(this.current_pages, language).subscribe(res => { // Appel avec un seul argument
       loading.dismiss();
       this.movies.push(...res.results);
       console.log(res);
       event?.target.complete();
-      if(event){
+      if (event) {
         event.target.disabled = res.total_pages === this.current_pages;
       }
     });
   }
 
-  loadMore(event : InfiniteScrollCustomEvent){
+  loadMore(event: InfiniteScrollCustomEvent) {
     this.current_pages++;
     this.loadMovies(event);
+  }
+  changeLanguage(lang: string) {
+    console.log('Langue sélectionnée :', lang);
+    this.translate.use(lang); // Utiliser la langue sélectionnée
+    window.location.reload(); // Rafraîchir l'application pour appliquer la nouvelle langue
   }
 }
